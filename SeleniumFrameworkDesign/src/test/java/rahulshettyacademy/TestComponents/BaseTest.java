@@ -39,7 +39,7 @@ public class BaseTest {
 	public WebDriver initializeDriver() throws IOException
 
 	{
-		// properties class
+		// properties class updated
 		final Map<String, Object> chromePrefs = new HashMap<>();
 		chromePrefs.put("credentials_enable_service", false);
 		chromePrefs.put("profile.password_manager_enabled", false);
