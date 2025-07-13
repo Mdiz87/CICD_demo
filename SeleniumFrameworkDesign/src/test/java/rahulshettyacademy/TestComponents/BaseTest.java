@@ -10,6 +10,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
@@ -39,6 +40,10 @@ public class BaseTest {
 
 	{
 		// properties class
+		final Map<String, Object> chromePrefs = new HashMap<>();
+		chromePrefs.put("credentials_enable_service", false);
+		chromePrefs.put("profile.password_manager_enabled", false);
+		chromePrefs.put("profile.password_manager_leak_detection", false);
 
 		 Properties prop = new Properties();
 		FileInputStream fis = new FileInputStream(System.getProperty("user.dir")
@@ -50,21 +55,23 @@ public class BaseTest {
 
 		if (browserName.contains("chrome")) {
 			ChromeOptions options = new ChromeOptions();
-			WebDriverManager.chromedriver().setup();
+			options.setExperimentalOption("prefs", chromePrefs);
+
+			
+			//WebDriverManager.chromedriver().setup();
 			if(browserName.contains("headless")){
-			options.addArguments("headless");
+			//options.addArguments("headless");
 			}		
 			driver = new ChromeDriver(options);
-			driver.manage().window().setSize(new Dimension(1440,900));//full screen
+			//driver.manage().window().setSize(new Dimension(1440,900));//full screen
 
 		} else if (browserName.equalsIgnoreCase("firefox")) {
-			System.setProperty("webdriver.gecko.driver",
-					"/Users/rahulshetty//documents//geckodriver");
+			//System.setProperty("webdriver.gecko.driver", "/Users/rahulshetty//documents//geckodriver");
 			driver = new FirefoxDriver();
 			// Firefox
 		} else if (browserName.equalsIgnoreCase("edge")) {
 			// Edge
-			System.setProperty("webdriver.edge.driver", "edge.exe");
+			//System.setProperty("webdriver.edge.driver", "edge.exe");
 			driver = new EdgeDriver();
 		}
 
